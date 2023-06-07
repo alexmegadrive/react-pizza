@@ -1,35 +1,37 @@
-import { useState } from "react";
-import viteLogo from "/vite.svg";
-import { Header, Sort, Categories, PizzaBlock } from "./components";
+// import { useState, useEffect } from "react";
+import { Header, Sort, Categories, PizzaList } from "./components";
+// import { IPizzaBlock } from "./components/PizzaList";
 import "./scss/app.scss";
-import pizzas from "./data/pizzas.json";
+import Home from "./pages/Home";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import NotFound from "./pages/NotFound";
+
+// import pizzas from "./data/pizzas.json";
 
 function App() {
+  // const router = createBrowserRouter([
+  //   {
+  //     path: "/",
+  //     element: <Home />,
+  //   },
+  //   {
+  //     path: "*",
+  //     element: <NotFound />,
+  //   },
+
+  //   {
+  //     path: "/pizzas/:id",
+  //     element: <App />,
+  //   },
+  // ]);
+
   return (
     <>
       <div className="wrapper">
         <Header />
         <div className="content">
           <div className="container">
-            <div className="content__top">
-              <Categories />
-              <Sort />
-            </div>
-            <h2 className="content__title">Все пиццы</h2>
-            <div className="content__items">
-              {pizzas.map((pizza) => (
-                <PizzaBlock
-                  key={pizza.id}
-                  title={pizza.title}
-                  price={pizza.price}
-                  imageUrl={pizza.imageUrl}
-                  category={pizza.category}
-                  types={pizza.types}
-                  sizes={pizza.sizes}
-                  rating={pizza.rating}
-                />
-              ))}
-            </div>
+            {/* <RouterProvider router={router} /> */}
           </div>
         </div>
       </div>
