@@ -1,0 +1,37 @@
+.root {
+  display: flex;
+  gap: 10px;
+}
+
+.link {
+  border-radius: 30px;
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  border: 1px solid #fe5f1e;
+  border-radius: 30px;
+  display: flex;
+  display: block;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #fe5f1e;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.1s ease-in;
+  &:hover {
+    background-color: #fe5f1e;
+    color: #fff;
+  }
+}
+.activePage {
+  border-radius: 30px;
+  background-color: #fe5f1e;
+}
+.activeLink {
+  background-color: #fe5f1e;
+  color: #fff;
+}
+.switch {
+  border-radius: 30px;
+}

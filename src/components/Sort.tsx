@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, FC } from "react";
 import { sortValues } from "../constants/sortValues";
-const Sort = () => {
-  const [selectedSort, setSelectedSort] = useState(0);
-  const [open, setOpen] = useState(false);
-  const currentSort = sortValues[selectedSort];
 
-  const handleSelectSort = (index: number) => {
-    setSelectedSort(index);
+interface ISortProps {
+  selectedSort: string;
+  setSelectedSort: (selectedSort: string) => void;
+}
+
+const Sort: FC<ISortProps> = ({ selectedSort, setSelectedSort }) => {
+  const [open, setOpen] = useState(false);
+  const currentSort = sortValues.filter((el) => el.sortType === selectedSort)[0]
+    ?.name;
+  console.log("currentSort :", currentSort);
+
+  const handleSelectSort = (value: string) => {
+    setSelectedSort(value);
     setOpen(false);
   };
   return (
@@ -30,13 +37,13 @@ const Sort = () => {
       {open && (
         <div className="sort__popup">
           <ul>
-            {sortValues.map((value, index) => (
+            {sortValues.map((obj, index) => (
               <li
                 key={index}
-                onClick={() => handleSelectSort(index)}
-                className={selectedSort === index ? "active" : ""}
+                onClick={() => handleSelectSort(obj.sortType)}
+                className={selectedSort === obj.sortType ? "active" : ""}
               >
-                {value}
+                {obj.name}
               </li>
             ))}
           </ul>

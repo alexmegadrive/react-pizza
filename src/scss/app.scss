@@ -17,6 +17,7 @@ body {
 
 .wrapper {
   width: calc(100vw - 100px);
+  min-width: 320px;
   height: 100%;
   background-color: #fff;
   margin: 50px auto;
@@ -29,18 +30,38 @@ body {
 
   &__title {
     margin: 35px 0;
+    font-weight: 800;
+    font-size: 38px;
   }
 
   &__items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    justify-items: center;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 11px;
+    @media (max-width: 1400px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width: 1060px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: 730px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 
   &__top {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (max-width: 1280px) {
+      flex-direction: column-reverse;
+      .categories {
+        margin-top: 30px;
+      }
+    }
   }
 }
 
@@ -58,6 +79,12 @@ body {
 }
 
 .cart {
+  &__items {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 11px;
+  }
   &__top {
     display: flex;
     justify-content: space-between;
@@ -113,18 +140,30 @@ body {
     }
   }
 
+  .content__items {
+    // display: flex;
+    // flex-direction: column;
+  }
   &__item {
-    display: flex;
+    display: grid;
     width: 100%;
     border-top: 1px solid $gray-line;
     padding-top: 30px;
     margin-top: 30px;
+    grid-template-areas: "img info count price remove";
+    @media only screen and (max-width: 800px) {
+      grid-template-columns: 2fr 2fr 1fr;
+      grid-template-areas:
+        "img info  info"
+        " count price  remove";
+    }
 
     &-img {
       display: flex;
       align-items: center;
       margin-right: 15px;
       width: 10%;
+      grid-area: img;
 
       img {
         width: 80px;
@@ -133,10 +172,15 @@ body {
     }
 
     &-info {
-      display: flex;
+      grid-area: info;
+      display: grid;
       flex-direction: column;
       justify-content: center;
       width: 40%;
+      @media only screen and (max-width: 800px) {
+        justify-content: flex-start;
+        width: 100%;
+      }
 
       h3 {
         font-weight: bold;
@@ -156,6 +200,8 @@ body {
       align-items: center;
       justify-content: space-between;
       width: 13%;
+      gap: 5px;
+      grid-area: count;
 
       &-minus {
         svg {
@@ -174,7 +220,11 @@ body {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 33%;
+      width: 70%;
+      grid-area: price;
+
+      @media only screen and (max-width: 800px) {
+      }
 
       b {
         font-weight: bold;
@@ -188,6 +238,7 @@ body {
       align-items: center;
       justify-content: flex-end;
       width: 4%;
+      grid-area: remove;
 
       .button {
         border-color: darken($color: $gray-line, $amount: 10);

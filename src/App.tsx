@@ -1,36 +1,29 @@
 import "./scss/app.scss";
-import Home from "./pages/Home";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import NotFound from "./pages/NotFound";
-import Root from "./pages/Root";
+import React, { FC, createContext, useState } from "react";
+import { Header } from "./components";
+import { Outlet } from "react-router-dom";
 
-function App() {
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Root />,
-      children: [
-        {
-          path: "/",
-          element: <Home />,
-        },
-        {
-          path: "*",
-          element: <NotFound />,
-        },
-        {
-          path: "/pizzas/:id",
-          element: <Home />,
-        },
-      ],
-    },
-  ]);
+interface ISearchContext {
+  searchValue: string;
+  setSearchValue?: (value: string) => void;
+}
+export const SearchContext = createContext<ISearchContext>({
+  searchValue: "",
+});
+
+const App = () => {
+  const [searchValue, setSearchValue] = useState("");
 
   return (
-    <>
-      <RouterProvider router={router} />
-    </>
+    <SearchContext.Provider value={{ searchValue, setSearchValue }}>
+      <div className="wrapper">
+        <Header />
+        <div className="content">
+          <Outlet />
+        </div>
+      </div>
+    </SearchContext.Provider>
   );
-}
+};
 
 export default App;

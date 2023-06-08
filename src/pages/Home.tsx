@@ -1,29 +1,56 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Categories, Sort } from "../components";
 import PizzaList, { IPizzaBlock } from "../components/PizzaList";
-// import "../scss/app.scss";
+import Pagination from "../components/Pagination";
+import { sortValues } from "../constants/sortValues";
+import { SearchContext } from "../App";
 
 const Home = () => {
+  const search = useContext(SearchContext);
   const [items, setItems] = useState<IPizzaBlock[] | never[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedSort, setSelectedSort] = useState("rating");
+  const [selectedCategory, setSelectedCategory] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const categoryStr = selectedCategory ? `category=${selectedCategory}` : "";
+  const searchStr = search.searchValue ? `search=${search.searchValue}` : "";
 
   useEffect(() => {
-    // setItems(pizzas);
-    fetch("https://648051f0f061e6ec4d49103b.mockapi.io/pizza/items")
+    setIsLoading(true);
+    setCurrentPage(1);
+    fetch(
+      `https://648051f0f061e6ec4d49103b.mockapi.io/pizza/items?&${categoryStr}${searchStr}&sortBy=${selectedSort}&order=desc`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setTotalPages(Math.ceil(data.length / 8));
+      });
+    fetch(
+      `https://648051f0f061e6ec4d49103b.mockapi.io/pizza/items?limit=8&page=${currentPage}&${categoryStr}${searchStr}&sortBy=${selectedSort}&order=desc`
+    )
       .then((res) => res.json())
       .then((data) => {
         setItems(data);
+        // setTotalPages(Math.ceil(data.length / 8));
         setIsLoading(false);
       });
-  }, []);
+    window.scrollTo(0, 0);
+  }, [categoryStr, selectedSort, searchStr, currentPage]);
 
   return (
-    <>
+    <div className="container">
       <div className="content__top">
-        <Categories />
-        <Sort />
-        <h2 className="content__title">Все пиццы</h2>
+        <Categories
+          selectedCategory={selectedCategory}
+          setSelectedCategory={(id) => setSelectedCategory(id)}
+        />
+        <Sort
+          selectedSort={selectedSort}
+          setSelectedSort={(id) => setSelectedSort(id)}
+        />
       </div>
+      <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
         <PizzaList
           list={items}
@@ -31,7 +58,12 @@ const Home = () => {
           // setIsloading={setIsLoading}
         />
       </div>
-    </>
+      <Pagination
+        handleChangePage={(value: number) => setCurrentPage(value)}
+        totalPages={totalPages}
+        // selectedPage={currentPage}
+      />
+    </div>
   );
 };
 

@@ -3,12 +3,16 @@
 .categories {
   ul {
     display: flex;
+    gap: 10px;
+    @media (max-width: 1260px) {
+      flex-wrap: wrap;
+      // grid-template-columns: repeat(2, 1fr);
+    }
 
     li {
       background-color: #f9f9f9;
       padding: 13px 30px;
       border-radius: 30px;
-      margin-right: 10px;
       font-weight: bold;
       cursor: pointer;
       transition: background-color 0.1s ease-in-out;

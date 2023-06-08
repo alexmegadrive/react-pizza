@@ -1,6 +1,11 @@
-import React from "react";
+import React, { FC } from "react";
 import { Link } from "react-router-dom";
+import Search from "./Search";
 
+// interface IHeaderProps {
+//   searchValue: string;
+//   setSearchValue: (value: string) => void;
+// }
 const Header = () => {
   return (
     <div className="header">
@@ -14,9 +19,9 @@ const Header = () => {
             </div>
           </div>
         </Link>
-
+        <Search />
         <div className="header__cart">
-          <Link to="/cart.html" className="button button--cart">
+          <Link to="/cart" className="button button--cart">
             <span>520 ₽</span>
             <div className="button__delimiter"></div>
             <svg
