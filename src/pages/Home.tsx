@@ -16,7 +16,7 @@ const Home = () => {
   // const [selectedCategory, setSelectedCategory] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const selectedSort = useAppSelector(
-    (state: RootState) => state.filter.sort.name
+    (state: RootState) => state.filter.sort.sortType
   );
   const selectedCategory = useAppSelector(
     (state: RootState) => state.filter.categoryId
