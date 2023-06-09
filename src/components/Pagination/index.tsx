@@ -15,8 +15,6 @@ const Pagination: FC<IPaginationProps> = ({
   return (
     <ReactPaginate
       className={styles.root}
-      //   pageClassName={styles.page}
-      //   forcePage={selectedPage}
       pageLinkClassName={styles.link}
       breakLabel="..."
       nextLabel=">"

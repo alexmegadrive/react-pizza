@@ -1,13 +1,19 @@
 import React, { FC, useContext } from "react";
 import styles from "./Search.module.scss";
-import { SearchContext } from "../../App";
+// import { SearchContext } from "../../App";
+import { useActions } from "../../hooks/useActions";
+import { RootState, useAppSelector } from "../../redux/store";
+
 // interface ISearchProps {
 //   searchValue: string;
 //   setSearchValue: (value: string) => void;
 // }
 // const Search: FC<ISearchProps> = ({ searchValue, setSearchValue }) => {
 const Search: FC = () => {
-  const search = useContext(SearchContext);
+  // const search = useContext(SearchContext);
+  const filterValue = useAppSelector((state: RootState) => state.filter.value);
+
+  const { setFilter, clearFilter } = useActions();
 
   return (
     <div className={styles.root}>
@@ -28,15 +34,15 @@ const Search: FC = () => {
           <line x1="21" x2="16.65" y1="21" y2="16.65" />
         </svg>
         <input
-          onChange={(event) => search.setSearchValue(event.target.value)}
+          onChange={(event) => setFilter(event.target.value)}
           className={styles.input}
-          value={search.searchValue}
+          value={filterValue}
           type="text"
           placeholder="Поиск пиццы..."
         />
-        {search.searchValue && (
+        {filterValue && (
           <svg
-            onClick={() => search.setSearchValue("")}
+            onClick={() => clearFilter()}
             className={styles.clear}
             data-name="Capa 1"
             id="Capa_1"

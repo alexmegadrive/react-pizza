@@ -4,15 +4,24 @@ import PizzaList, { IPizzaBlock } from "../components/PizzaList";
 import Pagination from "../components/Pagination";
 import { sortValues } from "../constants/sortValues";
 import { SearchContext } from "../App";
+import { useActions } from "../hooks/useActions";
+import { useAppSelector, RootState } from "../redux/store";
 
 const Home = () => {
   const search = useContext(SearchContext);
   const [items, setItems] = useState<IPizzaBlock[] | never[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedSort, setSelectedSort] = useState("rating");
-  const [selectedCategory, setSelectedCategory] = useState(0);
+  // const [selectedSort, setSelectedSort] = useState("rating");
+  // const [selectedCategory, setSelectedCategory] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const selectedSort = useAppSelector(
+    (state: RootState) => state.filter.sort.name
+  );
+  const selectedCategory = useAppSelector(
+    (state: RootState) => state.filter.categoryId
+  );
+
   const categoryStr = selectedCategory ? `category=${selectedCategory}` : "";
   const searchStr = search.searchValue ? `search=${search.searchValue}` : "";
 
@@ -42,12 +51,12 @@ const Home = () => {
     <div className="container">
       <div className="content__top">
         <Categories
-          selectedCategory={selectedCategory}
-          setSelectedCategory={(id) => setSelectedCategory(id)}
+        // selectedCategory={selectedCategory}
+        // setSelectedCategory={(id) => setSelectedCategory(id)}
         />
         <Sort
-          selectedSort={selectedSort}
-          setSelectedSort={(id) => setSelectedSort(id)}
+        // selectedSort={selectedSort}
+        // setSelectedSort={(id) => setSelectedSort(id)}
         />
       </div>
       <h2 className="content__title">Все пиццы</h2>
