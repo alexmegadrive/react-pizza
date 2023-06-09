@@ -11,20 +11,21 @@ import { useAppSelector, RootState } from "../redux/store";
 const Sort: FC = () =>
   // { selectedSort, setSelectedSort }
   {
-    const [open, setOpen] = useState(false);
+    // const [open, setOpen] = useState(false);
 
     const selectedSort = useAppSelector(
       (state: RootState) => state.filter.sort.sortType
     );
+    const popup = useAppSelector((state: RootState) => state.filter.sort.popup);
     const currentSort = sortValues.filter(
       (el) => el.sortType === selectedSort
     )[0]?.name;
 
-    const { setSort } = useActions();
+    const { setSort, openPopup } = useActions();
 
     const handleSelectSort = (obj: { name: string; sortType: string }) => {
-      setSort(obj);
-      setOpen(false);
+      setSort({ ...obj, popup: false });
+      // setOpen(false);
     };
     return (
       <div className="sort">
@@ -42,9 +43,9 @@ const Sort: FC = () =>
             />
           </svg>
           <b>Сортировка по:</b>
-          <span onClick={() => setOpen(!open)}>{currentSort}</span>
+          <span onClick={() => openPopup()}>{currentSort}</span>
         </div>
-        {open && (
+        {popup && (
           <div className="sort__popup">
             <ul>
               {sortValues.map((obj, index) => (

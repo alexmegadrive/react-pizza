@@ -1,19 +1,36 @@
-import React, { FC, useContext } from "react";
+import React, { FC, useCallback, useRef, useState } from "react";
+import debounce from "lodash.debounce";
 import styles from "./Search.module.scss";
-// import { SearchContext } from "../../App";
 import { useActions } from "../../hooks/useActions";
 import { RootState, useAppSelector } from "../../redux/store";
 
-// interface ISearchProps {
-//   searchValue: string;
-//   setSearchValue: (value: string) => void;
-// }
-// const Search: FC<ISearchProps> = ({ searchValue, setSearchValue }) => {
 const Search: FC = () => {
-  // const search = useContext(SearchContext);
-  const filterValue = useAppSelector((state: RootState) => state.filter.value);
-
+  const searchStateValue = useAppSelector(
+    (state: RootState) => state.filter.value
+  );
   const { setFilter, clearFilter } = useActions();
+  const [searchLocalValue, setSearchLocalValue] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleSearchChange = (value: string) => {
+    setSearchLocalValue(value);
+    setDebouncedFilterValue(value);
+  };
+
+  const setDebouncedFilterValue = useCallback(
+    debounce((value: string) => {
+      console.log(value);
+      setFilter(value);
+    }, 500),
+    []
+  );
+
+  const handleClearSearch = () => {
+    if (inputRef.current) inputRef.current.focus();
+    setSearchLocalValue("");
+    setFilter("");
+    clearFilter();
+  };
 
   return (
     <div className={styles.root}>
@@ -34,15 +51,16 @@ const Search: FC = () => {
           <line x1="21" x2="16.65" y1="21" y2="16.65" />
         </svg>
         <input
-          onChange={(event) => setFilter(event.target.value)}
+          onChange={(event) => handleSearchChange(event.target.value)}
           className={styles.input}
-          value={filterValue}
+          value={searchLocalValue}
+          ref={inputRef}
           type="text"
           placeholder="Поиск пиццы..."
         />
-        {filterValue && (
+        {searchStateValue && (
           <svg
-            onClick={() => clearFilter()}
+            onClick={() => handleClearSearch()}
             className={styles.clear}
             data-name="Capa 1"
             id="Capa_1"
