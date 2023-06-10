@@ -30,7 +30,7 @@ const Pagination: FC = () =>
         pageLinkClassName={styles.link}
         breakLabel="..."
         nextLabel=">"
-        forcePage={pageCurrent - 1}
+        // forcePage={pageCurrent - 1}
         previousLabel="<"
         activeLinkClassName={styles.activeLink}
         previousClassName={styles.page}
