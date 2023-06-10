@@ -1,6 +1,6 @@
 import React from "react";
 import { IPizzaBlock } from "../PizzaList";
-import { pizzaTypeNames } from "../../constants/pizzaTypeNames";
+import { pizzaTypeNames } from "@/constants/pizzaTypeNames";
 const PizzaBlock = ({
   //   id,
   title,
