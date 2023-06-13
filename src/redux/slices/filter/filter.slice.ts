@@ -9,6 +9,7 @@ interface IFilterInitialState {
   sort: { name: string; sortType: string; popup: boolean };
   pageCurrent: number;
   pagesTotal: number;
+  isMounted: boolean;
 }
 const initialState: IFilterInitialState = {
   value: "",
@@ -16,6 +17,7 @@ const initialState: IFilterInitialState = {
   pageCurrent: 1,
   pagesTotal: 1,
   sort: { name: "популярности", sortType: "rating", popup: false },
+  isMounted: false,
 };
 // interface IFilterSLiceState < string>
 // const initialState = "";
@@ -24,17 +26,28 @@ export const filterSlice = createSlice({
   name: "filter",
   initialState,
   reducers: {
-    setFilter: (state, action: PayloadAction<string>) => {
-      return (state = { ...state, value: action.payload });
+    setSearchValue: (state, action: PayloadAction<string>) => {
+      return (state = { ...state, value: action.payload, pageCurrent: 1 });
     },
     setCategory: (state, action: PayloadAction<number>) => {
-      return (state = { ...state, categoryId: action.payload });
+      return (state = { ...state, categoryId: action.payload, pageCurrent: 1 });
     },
     setPageCurrent: (state, action: PayloadAction<number>) => {
       return (state = { ...state, pageCurrent: action.payload });
     },
     setPagesTotal: (state, action: PayloadAction<number>) => {
       return (state = { ...state, pagesTotal: action.payload });
+    },
+    setFilters: (state, action: PayloadAction<any>) => {
+      // state.pageCurrent = Number(action.payload.pageCurrent);
+      // state.categoryId = action.payload.categoryId;
+      // state.sort = action.payload.sort;
+      return (state = {
+        ...state,
+        sort: action.payload.sort,
+        pageCurrent: Number(action.payload.pageCurrent),
+        categoryId: Number(action.payload.categoryId),
+      });
     },
     setSort: (
       state,
@@ -50,6 +63,9 @@ export const filterSlice = createSlice({
     },
     clearFilter: (state) => {
       return (state = { ...state, value: "" });
+    },
+    setMounted: (state) => {
+      return (state = { ...state, isMounted: true });
     },
   },
 });

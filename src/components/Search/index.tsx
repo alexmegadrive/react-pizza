@@ -8,7 +8,7 @@ const Search: FC = () => {
   const searchStateValue = useAppSelector(
     (state: RootState) => state.filter.value
   );
-  const { setFilter, clearFilter } = useActions();
+  const { setSearchValue, clearFilter, setCategory } = useActions();
   const [searchLocalValue, setSearchLocalValue] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -20,7 +20,8 @@ const Search: FC = () => {
   const setDebouncedFilterValue = useCallback(
     debounce((value: string) => {
       console.log(value);
-      setFilter(value);
+      setCategory(0);
+      setSearchValue(value);
     }, 500),
     []
   );
@@ -28,7 +29,7 @@ const Search: FC = () => {
   const handleClearSearch = () => {
     if (inputRef.current) inputRef.current.focus();
     setSearchLocalValue("");
-    setFilter("");
+    setSearchValue("");
     clearFilter();
   };
 

@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import { PizzaBlock } from "./";
 import PizzaSkeleton from "./PizzaBlock/skeleton";
-import { SearchContext } from "../App";
+import { useAppSelector, RootState } from "../redux/store";
+// import { SearchContext } from "../App";
 
 export interface IPizzaBlock {
   id: number;
@@ -20,12 +21,11 @@ interface IPizzaListProps {
   //   setIsLoading: (value: boolean) => void;
 }
 const PizzaList = ({ list, isLoading }: IPizzaListProps) => {
-  const search = useContext(SearchContext);
+  // const search = useContext(SearchContext);
+  const searchValue = useAppSelector((state: RootState) => state.filter.value);
 
   const pizzas = list
-    .filter((el) =>
-      el.title.toLowerCase().includes(search.searchValue.toLowerCase())
-    )
+    .filter((el) => el.title.toLowerCase().includes(searchValue.toLowerCase()))
     .map((item, _) => <PizzaBlock key={item.id} {...item} />);
   return (
     <>
