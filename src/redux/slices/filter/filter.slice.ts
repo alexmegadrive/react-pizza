@@ -55,11 +55,14 @@ export const filterSlice = createSlice({
     ) => {
       return (state = { ...state, sort: action.payload });
     },
-    openPopup: (
+    toggleSortPopup: (
       state
       //   action: PayloadAction<>
     ) => {
-      return (state = { ...state, sort: { ...state.sort, popup: true } });
+      return (state = {
+        ...state,
+        sort: { ...state.sort, popup: !state.sort.popup },
+      });
     },
     clearFilter: (state) => {
       return (state = { ...state, value: "" });

@@ -1,8 +1,8 @@
 import React, { FC, useCallback, useRef, useState } from "react";
 import debounce from "lodash.debounce";
 import styles from "./Search.module.scss";
-import { useActions } from "../../hooks/useActions";
-import { RootState, useAppSelector } from "../../redux/store";
+import { useActions } from "@/hooks/useActions";
+import { RootState, useAppSelector } from "@/redux/store";
 
 const Search: FC = () => {
   const searchStateValue = useAppSelector(
