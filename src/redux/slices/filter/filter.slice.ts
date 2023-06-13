@@ -3,20 +3,22 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 // import employeesDB from "../../data/employees";
 // import { IEmployeCard } from "../../components/Employees/EmployeesList/EmployeesList";
 
-interface IFilterInitialState {
+interface IFilterProps {
   value: string;
   categoryId: number;
-  sort: { name: string; sortType: string; popup: boolean };
+  sort: { name: string; sortType: string };
   pageCurrent: number;
   pagesTotal: number;
   isMounted: boolean;
+  popup: boolean;
 }
-const initialState: IFilterInitialState = {
+const initialState: IFilterProps = {
   value: "",
   categoryId: 0,
   pageCurrent: 1,
   pagesTotal: 1,
-  sort: { name: "популярности", sortType: "rating", popup: false },
+  sort: { name: "популярности", sortType: "rating" },
+  popup: false,
   isMounted: false,
 };
 // interface IFilterSLiceState < string>
@@ -51,17 +53,27 @@ export const filterSlice = createSlice({
     },
     setSort: (
       state,
-      action: PayloadAction<{ name: string; sortType: string; popup: boolean }>
+      action: PayloadAction<{ name: string; sortType: string }>
     ) => {
       return (state = { ...state, sort: action.payload });
     },
-    toggleSortPopup: (
-      state
-      //   action: PayloadAction<>
-    ) => {
+    toggleSortPopup: (state) => {
       return (state = {
         ...state,
-        sort: { ...state.sort, popup: !state.sort.popup },
+        popup: !state.popup,
+      });
+    },
+
+    closePopup: (state) => {
+      return (state = {
+        ...state,
+        popup: false,
+      });
+    },
+    openPopup: (state) => {
+      return (state = {
+        ...state,
+        popup: true,
       });
     },
     clearFilter: (state) => {

@@ -1,4 +1,4 @@
-import React, { useState, FC, useRef } from "react";
+import React, { useState, FC, useRef, useEffect } from "react";
 import { CSSTransition } from "react-transition-group";
 import { sortValues } from "../constants/sortValues";
 import { useActions } from "../hooks/useActions";
@@ -8,18 +8,31 @@ const Sort = () => {
   const selectedSort = useAppSelector(
     (state: RootState) => state.filter.sort.sortType
   );
-  const popup = useAppSelector((state: RootState) => state.filter.sort.popup);
+  const popup = useAppSelector((state: RootState) => state.filter.popup);
   const currentSort = sortValues.filter((el) => el.sortType === selectedSort)[0]
     ?.name;
 
-  const { setSort, toggleSortPopup } = useActions();
+  const { setSort, toggleSortPopup, closePopup, openPopup } = useActions();
   const nodeRef = useRef(null);
+  const sortRef = useRef<HTMLDivElement>(null);
 
   const handleSelectSort = (obj: { name: string; sortType: string }) => {
-    setSort({ ...obj, popup: false });
+    setSort({ ...obj });
+    toggleSortPopup();
+    console.log("handleselectsort");
   };
+
+  useEffect(() => {
+    const handleCloseSort = (event) => {
+      const composed = event.composedPath();
+      if (!composed.includes(sortRef.current)) closePopup();
+    };
+    document.body.addEventListener("click", handleCloseSort);
+    return () => document.body.removeEventListener("click", handleCloseSort);
+  }, []);
+
   return (
-    <div className="sort">
+    <div className="sort" ref={sortRef}>
       <div className="sort__label">
         <svg
           width="10"
