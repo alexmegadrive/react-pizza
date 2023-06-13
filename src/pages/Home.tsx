@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Categories, Sort } from "../components";
-import PizzaList, { IPizzaBlock } from "../components/PizzaList";
-import Pagination from "../components/Pagination";
+import { Categories, Sort } from "@/components";
+import PizzaList, { IPizzaBlock } from "@/components/PizzaList";
+import Pagination from "@/components/Pagination";
 import { useNavigate } from "react-router-dom";
 import qs from "qs";
 
-import { useActions } from "../hooks/useActions";
+import { useActions } from "@/hooks/useActions";
 import axios from "axios";
-import { useAppSelector, RootState } from "../redux/store";
-import { sortValues } from "../constants/sortValues";
+import { useAppSelector, RootState } from "@/redux/store";
+import { sortValues } from "@/constants/sortValues";
 
 const Home = () => {
   const navigate = useNavigate();

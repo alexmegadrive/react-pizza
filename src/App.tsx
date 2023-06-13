@@ -1,6 +1,6 @@
 import "./scss/app.scss";
 import React, { FC, createContext, useState } from "react";
-import { Header } from "./components";
+import { Header } from "@/components";
 import { Outlet } from "react-router-dom";
 
 // interface ISearchContext {

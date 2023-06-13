@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import ReactPaginate from "react-paginate";
 import styles from "./Pagination.module.scss";
-import { useActions } from "../../hooks/useActions";
-import { useAppSelector, RootState } from "../../redux/store";
+import { useActions } from "@/hooks/useActions";
+import { useAppSelector, RootState } from "@/redux/store";
 
 // interface IPaginationProps {
 //   handleChangePage: (page: number) => void;
