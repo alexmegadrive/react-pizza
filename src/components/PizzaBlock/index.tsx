@@ -1,8 +1,13 @@
 import React from "react";
 import { IPizzaBlock } from "../PizzaList";
 import { pizzaTypeNames } from "@/constants/pizzaTypeNames";
+import { useActions } from "@/hooks/useActions";
+import { ICartItem } from "@/redux/slices/cart/cart.slice";
+import { useSelector } from "react-redux";
+import { useAppSelector, RootState } from "@/redux/store";
+
 const PizzaBlock = ({
-  //   id,
+  id,
   title,
   price,
   imageUrl,
@@ -11,11 +16,29 @@ const PizzaBlock = ({
   category,
   rating,
 }: IPizzaBlock) => {
-  const [pizzaCount, setPizzaCount] = React.useState(0);
+  const cartItem = useAppSelector((state: RootState) =>
+    state.cart.items.find((item) => item.id === id)
+  );
+  const itemsInCart = cartItem ? cartItem?.count : 0;
   const [activeType, setActiveType] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
+  const { addItem } = useActions();
+
+  const handleAddItem = () => {
+    const item: Omit<ICartItem, "count"> = {
+      id,
+      title,
+      price,
+      imageUrl,
+      activeType,
+      type: pizzaTypeNames[activeType],
+      size: activeSize,
+    };
+    addItem(item);
+  };
 
   //   const increasePizzaCount = () => {
+  //const creatamount doo
   //     setPizzaCount(pizzaCount + 1);
   //   };
 
@@ -50,8 +73,8 @@ const PizzaBlock = ({
         </div>
         <div className="pizza-block__bottom">
           <div className="pizza-block__price">от {price} ₽</div>
-          <div
-            onClick={() => setPizzaCount(pizzaCount + 1)}
+          <button
+            onClick={() => handleAddItem()}
             className="button button--outline button--add"
           >
             <svg
@@ -67,8 +90,8 @@ const PizzaBlock = ({
               />
             </svg>
             <span>Добавить</span>
-            <i>{pizzaCount}</i>
-          </div>
+            {itemsInCart > 0 && <i>{itemsInCart}</i>}
+          </button>
         </div>
       </div>
     </div>
@@ -76,3 +99,7 @@ const PizzaBlock = ({
 };
 
 export default PizzaBlock;
+
+function pizzablock({ price }) {
+  return <div className="pizza-block__price">от {price} ₽</div>;
+}

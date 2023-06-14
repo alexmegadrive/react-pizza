@@ -1,17 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { act } from "react-dom/test-utils";
 // import employeesDB from "../../data/employees";
 // import { IEmployeCard } from "../../components/Employees/EmployeesList/EmployeesList";
 
-interface ICartItem {
+export interface ICartItem {
   id: number;
-  imageUrl: string;
   title: string;
-  types: number[];
-  sizes: number[];
   price: number;
-  category: number;
-  rating: number;
+  imageUrl: string;
+  activeType: number;
+  type: string;
+  size: number;
+  count: number;
 }
 interface ICartProps {
   items: ICartItem[];
@@ -28,14 +29,39 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addProduct: (state, action) => {
-      state.items.push(action.payload);
+    addItem: (state, action: PayloadAction<Omit<ICartItem, "count">>) => {
+      const findItem = state.items.find(
+        (item) => item.id === action.payload.id
+      );
+      if (findItem) findItem.count++;
+      else state.items.push({ ...action.payload, count: 1 });
+      cartSlice.caseReducers.countTotalSum(state);
     },
-    removeItem: (state, action) => {
-      state.items.filter((el) => el.id !== action.payload);
+
+    increaseItem: (state, action: PayloadAction<number>) => {
+      const findItem = state.items.find((item) => item.id === action.payload);
+      if (findItem) findItem.count++;
+      cartSlice.caseReducers.countTotalSum(state);
     },
-    clearItems: (state, action) => {
+    decreaseItem: (state, action: PayloadAction<number>) => {
+      const findItem = state.items.find((item) => item.id === action.payload);
+      if (findItem && findItem.count > 1) findItem.count--;
+      else cartSlice.caseReducers.removeItem(state, action);
+      cartSlice.caseReducers.countTotalSum(state);
+    },
+    removeItem: (state, action: PayloadAction<number>) => {
+      state.items = state.items.filter((el) => el.id !== action.payload);
+      cartSlice.caseReducers.countTotalSum(state);
+    },
+    clearItems: (state) => {
       state.items = [];
+      state.totalPrice = 0;
+    },
+    countTotalSum: (state) => {
+      state.totalPrice = state.items.reduce(
+        (total, item) => total + item.price * item.count,
+        0
+      );
     },
   },
 });

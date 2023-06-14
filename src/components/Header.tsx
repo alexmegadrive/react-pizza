@@ -1,10 +1,14 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import Search from "./Search";
-import { useAppSelector } from "@/redux/store";
-import { RootState } from "@reduxjs/toolkit/dist/query/core/apiState";
+import { useAppSelector, RootState } from "@/redux/store";
 
 const Header = () => {
+  const { items, totalPrice } = useAppSelector(
+    (state: RootState) => state.cart
+  );
+  const totalCount = items.reduce((acc, item) => acc + item.count, 0);
+
   return (
     <div className="header">
       <div className="container">
@@ -20,7 +24,7 @@ const Header = () => {
         <Search />
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
-            <span>520 ₽</span>
+            <span>{totalPrice} ₽</span>
             <div className="button__delimiter"></div>
             <svg
               width="18"
@@ -51,7 +55,7 @@ const Header = () => {
                 strokeLinejoin="round"
               />
             </svg>
-            <span>3</span>
+            <span>{totalCount}</span>
           </Link>
         </div>
       </div>

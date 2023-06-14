@@ -4,7 +4,7 @@ import PizzaList, { IPizzaBlock } from "../components/PizzaList";
 import Pagination from "../components/Pagination";
 import { useNavigate } from "react-router-dom";
 import qs from "qs";
-
+import pizzas from "../data/pizzas.json";
 import { useActions } from "../hooks/useActions";
 import axios from "axios";
 import { useAppSelector, RootState } from "../redux/store";
@@ -34,6 +34,11 @@ const Home = () => {
   const searchStr = searchValue ? `search=${searchValue}` : "";
 
   const fetchPizzas = async () => {
+    ////////////////////////
+    // setItems(pizzas);
+    // console.log("items :", items);
+    // setIsLoading(false);
+
     axios
       .get(
         `${baseUrl}${categoryStr}${searchStr}&sortBy=${selectedSortType}&order=desc`
