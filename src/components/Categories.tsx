@@ -3,11 +3,6 @@ import { categories } from "../constants/categories";
 import { useAppSelector, RootState } from "../redux/store";
 import { useActions } from "../hooks/useActions";
 
-// interface ICategoryProps {
-//   selectedCategory: number;
-//   setSelectedCategory: (selectedCategory: number) => void;
-// }
-// const Categories: FC<ICategoryProps> = () => {
 const Categories: FC = () => {
   const selectedCategory = useAppSelector(
     (state: RootState) => state.filter.categoryId

@@ -9,8 +9,7 @@ const CartItem: FC<ICartItem> = ({
   count,
   imageUrl,
 }) => {
-  const { addItem, removeItem, decreaseItem, increaseItem, clearItems } =
-    useActions();
+  const { removeItem, decreaseItem, increaseItem } = useActions();
 
   const handleIncreaseItem = () => {
     increaseItem(id);

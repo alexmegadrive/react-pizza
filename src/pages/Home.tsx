@@ -34,7 +34,7 @@ const Home = () => {
   const searchStr = searchValue ? `search=${searchValue}` : "";
 
   const fetchPizzas = async () => {
-    ////////////////////////
+    //// DEV
     // setItems(pizzas);
     // console.log("items :", items);
     // setIsLoading(false);
@@ -59,7 +59,7 @@ const Home = () => {
       });
   };
 
-  // // PARSE URL PARAMS
+  // PARSE URL PARAMS
   useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
@@ -69,7 +69,7 @@ const Home = () => {
     setMounted();
   }, []);
 
-  // // // // UPDATE URL PARAMS
+  // UPDATE URL PARAMS
   useEffect(() => {
     if (isMounted) {
       const queryString = qs.stringify({

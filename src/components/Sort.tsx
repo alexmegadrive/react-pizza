@@ -19,7 +19,6 @@ const Sort = () => {
   const handleSelectSort = (obj: { name: string; sortType: string }) => {
     setSort({ ...obj });
     toggleSortPopup();
-    console.log("handleselectsort");
   };
 
   useEffect(() => {

@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { PizzaBlock } from "./";
 import PizzaSkeleton from "./PizzaBlock/skeleton";
 import { useAppSelector, RootState } from "../redux/store";
-// import { SearchContext } from "../App";
 
 export interface IPizzaBlock {
   id: number;
@@ -17,11 +16,8 @@ export interface IPizzaBlock {
 interface IPizzaListProps {
   list: IPizzaBlock[] | never[];
   isLoading: boolean;
-  // searchValue: string;
-  //   setIsLoading: (value: boolean) => void;
 }
 const PizzaList = ({ list, isLoading }: IPizzaListProps) => {
-  // const search = useContext(SearchContext);
   const searchValue = useAppSelector((state: RootState) => state.filter.value);
 
   const pizzas = list
