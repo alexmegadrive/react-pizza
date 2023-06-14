@@ -1,11 +1,9 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import Search from "./Search";
+import { useAppSelector } from "@/redux/store";
+import { RootState } from "@reduxjs/toolkit/dist/query/core/apiState";
 
-// interface IHeaderProps {
-//   searchValue: string;
-//   setSearchValue: (value: string) => void;
-// }
 const Header = () => {
   return (
     <div className="header">

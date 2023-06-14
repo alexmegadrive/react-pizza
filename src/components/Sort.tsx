@@ -23,7 +23,7 @@ const Sort = () => {
   };
 
   useEffect(() => {
-    const handleCloseSort = (event) => {
+    const handleCloseSort = (event: any) => {
       const composed = event.composedPath();
       if (!composed.includes(sortRef.current)) closePopup();
     };
