@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { ICartItem } from "@/redux/slices/cart/cart.slice";
 import { useActions } from "@/hooks/useActions";
+import clsx from "clsx";
 const CartItem: FC<ICartItem> = ({
   id,
   title,
@@ -28,9 +29,13 @@ const CartItem: FC<ICartItem> = ({
         <p>{type}, 26 см.</p>
       </div>
       <div className="cart__item-count">
-        <div
+        <button
+          disabled={count === 1}
           onClick={() => handleDecreaseItem()}
-          className="button button--outline button--circle cart__item-count-minus"
+          className={clsx(
+            "button button--outline button--circle cart__item-count-minus",
+            { "cart__item-count--disabled": count === 1 }
+          )}
         >
           <svg
             width="10"
@@ -48,9 +53,9 @@ const CartItem: FC<ICartItem> = ({
               fill="#EB5A1E"
             />
           </svg>
-        </div>
+        </button>
         <b>{count}</b>
-        <div
+        <button
           onClick={() => handleIncreaseItem()}
           className="button button--outline button--circle cart__item-count-plus"
         >
@@ -70,13 +75,13 @@ const CartItem: FC<ICartItem> = ({
               fill="#EB5A1E"
             />
           </svg>
-        </div>
+        </button>
       </div>
       <div className="cart__item-price">
         <b>{price * count} ₽</b>
       </div>
       <div className="cart__item-remove">
-        <div
+        <button
           onClick={() => removeItem(id)}
           className="button button--outline button--circle"
         >
@@ -96,7 +101,7 @@ const CartItem: FC<ICartItem> = ({
               fill="#EB5A1E"
             />
           </svg>
-        </div>
+        </button>
       </div>
     </div>
   );

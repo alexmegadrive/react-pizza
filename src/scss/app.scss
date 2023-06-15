@@ -146,10 +146,6 @@ body {
     }
   }
 
-  .content__items {
-    // display: flex;
-    // flex-direction: column;
-  }
   &__item {
     display: grid;
     width: 100%;
@@ -208,6 +204,23 @@ body {
       width: 13%;
       gap: 5px;
       grid-area: count;
+
+      &--disabled {
+        opacity: 0.4;
+        border-color: #787878;
+        &:active {
+          transform: none;
+        }
+        &:hover {
+          background-color: transparent;
+          svg path {
+            fill: #787878;
+          }
+        }
+        svg path {
+          fill: #787878;
+        }
+      }
 
       &-minus {
         svg {
@@ -339,7 +352,7 @@ body {
 
   &--empty {
     margin: 0 auto;
-    width: 560px;
+    padding: 0 30px;
     text-align: center;
 
     h2 {

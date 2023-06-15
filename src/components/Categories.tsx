@@ -1,18 +1,23 @@
-import React, { useState, FC } from "react";
+import React, { memo, useState, FC, useCallback } from "react";
 import { categories } from "../constants/categories";
 import { useAppSelector, RootState } from "../redux/store";
 import { useActions } from "../hooks/useActions";
+import useWhyDidYouUpdate from "ahooks/lib/useWhyDidYouUpdate";
 
-const Categories: FC = () => {
+const Categories: FC = memo(() => {
   const selectedCategory = useAppSelector(
     (state: RootState) => state.filter.categoryId
   );
   const { setCategory, setPageCurrent } = useActions();
 
-  const handleChangeCategory = (index: number) => {
-    setPageCurrent(1);
-    setCategory(index);
-  };
+  const handleChangeCategory = useCallback(
+    (index: number) => {
+      setPageCurrent(1);
+      setCategory(index);
+    },
+    [setPageCurrent, setCategory]
+  );
+
   return (
     <div className="categories">
       <ul>
@@ -28,6 +33,6 @@ const Categories: FC = () => {
       </ul>
     </div>
   );
-};
+});
 
 export default Categories;

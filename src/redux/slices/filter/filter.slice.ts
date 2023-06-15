@@ -37,9 +37,7 @@ export const filterSlice = createSlice({
     setPageCurrent: (state, action: PayloadAction<number>) => {
       return (state = { ...state, pageCurrent: action.payload });
     },
-    setPagesTotal: (state, action: PayloadAction<number>) => {
-      return (state = { ...state, pagesTotal: action.payload });
-    },
+
     setFilters: (state, action: PayloadAction<any>) => {
       // state.pageCurrent = Number(action.payload.pageCurrent);
       // state.categoryId = action.payload.categoryId;

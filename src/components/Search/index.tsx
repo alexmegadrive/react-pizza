@@ -3,6 +3,7 @@ import debounce from "lodash.debounce";
 import styles from "./Search.module.scss";
 import { useActions } from "../../hooks/useActions";
 import { RootState, useAppSelector } from "@/redux/store";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Search: FC = () => {
   const searchStateValue = useAppSelector(
@@ -12,7 +13,12 @@ const Search: FC = () => {
   const [searchLocalValue, setSearchLocalValue] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const handleSearchChange = (value: string) => {
+    if (location.pathname !== "/") navigate("/");
+
     setSearchLocalValue(value);
     setDebouncedFilterValue(value);
   };
@@ -26,8 +32,9 @@ const Search: FC = () => {
     []
   );
 
-  const handleClearSearch = () => {
-    if (inputRef.current) inputRef.current.focus();
+  const handleClearSearch = (event: React.SyntheticEvent<SVGElement>) => {
+    console.log("event :", event);
+    inputRef.current?.focus();
     setSearchLocalValue("");
     setSearchValue("");
     clearFilter();
@@ -61,7 +68,7 @@ const Search: FC = () => {
         />
         {searchStateValue && (
           <svg
-            onClick={() => handleClearSearch()}
+            onClick={(event) => handleClearSearch(event)}
             className={styles.clear}
             data-name="Capa 1"
             id="Capa_1"

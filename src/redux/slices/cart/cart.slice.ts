@@ -1,9 +1,6 @@
 import { RootState } from "@/redux/store";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { act } from "react-dom/test-utils";
-// import employeesDB from "../../data/employees";
-// import { IEmployeCard } from "../../components/Employees/EmployeesList/EmployeesList";
 
 export interface ICartItem {
   id: number;
@@ -47,8 +44,8 @@ export const cartSlice = createSlice({
     decreaseItem: (state, action: PayloadAction<number>) => {
       const findItem = state.items.find((item) => item.id === action.payload);
       if (findItem && findItem.count > 1) findItem.count--;
-      else cartSlice.caseReducers.removeItem(state, action);
-      cartSlice.caseReducers.countTotalSum(state);
+      // else cartSlice.caseReducers.removeItem(state, action);
+      // cartSlice.caseReducers.countTotalSum(state);
     },
     removeItem: (state, action: PayloadAction<number>) => {
       state.items = state.items.filter((el) => el.id !== action.payload);

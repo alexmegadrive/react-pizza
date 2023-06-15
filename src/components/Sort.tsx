@@ -1,34 +1,54 @@
-import React, { useState, FC, useRef, useEffect } from "react";
+import React, {
+  memo,
+  useState,
+  FC,
+  useRef,
+  useEffect,
+  useCallback,
+} from "react";
+import { useClickAway, useWhyDidYouUpdate } from "ahooks";
+
 import { CSSTransition } from "react-transition-group";
 import { sortValues } from "../constants/sortValues";
 import { useActions } from "../hooks/useActions";
 import { useAppSelector, RootState } from "../redux/store";
 
-const Sort = () => {
-  const selectedSort = useAppSelector(
-    (state: RootState) => state.filter.sort.sortType
-  );
-  const popup = useAppSelector((state: RootState) => state.filter.popup);
+interface ISortProps {
+  selectedSort: string;
+  popup: boolean;
+}
+const Sort: FC<ISortProps> = memo(({ selectedSort, popup }) => {
+  // const selectedSort = useAppSelector(
+  //   (state: RootState) => state.filter.sort.sortType
+  // );
+  // const popup = useAppSelector((state: RootState) => state.filter.popup);
   const currentSort = sortValues.filter((el) => el.sortType === selectedSort)[0]
     ?.name;
 
-  const { setSort, toggleSortPopup, closePopup, openPopup } = useActions();
+  const { setSort, toggleSortPopup, closePopup } = useActions();
   const nodeRef = useRef(null);
   const sortRef = useRef<HTMLDivElement>(null);
 
-  const handleSelectSort = (obj: { name: string; sortType: string }) => {
-    setSort({ ...obj });
-    toggleSortPopup();
-  };
+  const handleSelectSort = useCallback(
+    (obj: { name: string; sortType: string }) => {
+      setSort({ ...obj });
+      toggleSortPopup();
+    },
+    []
+  );
 
-  useEffect(() => {
-    const handleCloseSort = (event: any) => {
-      const composed = event.composedPath();
-      if (!composed.includes(sortRef.current)) closePopup();
-    };
-    document.body.addEventListener("click", handleCloseSort);
-    return () => document.body.removeEventListener("click", handleCloseSort);
-  }, []);
+  useClickAway(() => {
+    closePopup();
+  }, sortRef);
+
+  // useEffect(() => {
+  //   const handleCloseSort = (event: MouseEvent) => {
+  //     const composed = event.composedPath();
+  //     if (sortRef.current && !composed.includes(sortRef.current)) closePopup();
+  //   };
+  //   document.body.addEventListener("click", handleCloseSort);
+  //   return () => document.body.removeEventListener("click", handleCloseSort);
+  // }, []);
 
   return (
     <div className="sort" ref={sortRef}>
@@ -59,7 +79,6 @@ const Sort = () => {
           <ul>
             {sortValues.map((obj, index) => (
               <li
-                // ref={nodeRef}
                 key={index}
                 onClick={() => handleSelectSort(obj)}
                 className={selectedSort === obj.sortType ? "active" : ""}
@@ -72,6 +91,6 @@ const Sort = () => {
       </CSSTransition>
     </div>
   );
-};
+});
 
 export default Sort;

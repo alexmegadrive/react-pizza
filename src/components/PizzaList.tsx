@@ -2,7 +2,8 @@ import React, { FC, useContext } from "react";
 import { PizzaBlock } from "./";
 import PizzaSkeleton from "./PizzaBlock/skeleton";
 import { useAppSelector, RootState } from "../redux/store";
-import { IFetchStatus } from "@/redux/slices/products/products.slice";
+import { FetchStatus } from "@/redux/slices/products/products.slice";
+import { Link } from "react-router-dom";
 
 export interface IPizzaBlock {
   id: number;
@@ -16,18 +17,21 @@ export interface IPizzaBlock {
 }
 interface IPizzaListProps {
   list: IPizzaBlock[] | never[];
-  status: IFetchStatus;
+  status: FetchStatus;
 }
 
 const PizzaList: FC<IPizzaListProps> = ({ list, status }) => {
-  console.log("status :", status);
   const searchValue = useAppSelector((state: RootState) => state.filter.value);
 
   const pizzas = list
     .filter((el) => el.title.toLowerCase().includes(searchValue.toLowerCase()))
-    .map((item, _) => <PizzaBlock key={item.id} {...item} />);
+    .map((item, _) => (
+      <Link to={`/pizza/${item.id}`} key={item.id}>
+        <PizzaBlock {...item} />
+      </Link>
+    ));
 
-  if (status === "error") {
+  if (status === FetchStatus.ERROR) {
     return (
       <div className="content__error">
         <h1>Возникла ошибка при загрузке 😕</h1>
@@ -35,14 +39,16 @@ const PizzaList: FC<IPizzaListProps> = ({ list, status }) => {
       </div>
     );
   }
-  if (status === "loading") {
+  if (status === FetchStatus.LOADING) {
     return (
       <div className="content__items">
         {...[...new Array(8)].map((_, index) => <PizzaSkeleton key={index} />)}
       </div>
     );
   }
-  return <div className="content__items">{...pizzas}</div>;
+  if (status === FetchStatus.SUCCESS && pizzas.length > 0) {
+    return <div className="content__items">{...pizzas}</div>;
+  } else return <h2>Ничего не найдено, попробуйте изменить поиск</h2>;
 };
 
 export default PizzaList;

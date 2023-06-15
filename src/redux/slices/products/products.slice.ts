@@ -3,6 +3,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
+export enum FetchStatus {
+  LOADING = "loading",
+  SUCCESS = "success",
+  ERROR = "error",
+}
 interface IFetchPizzaParams {
   pageCurrent: number;
   categoryStr: string;
@@ -10,11 +15,11 @@ interface IFetchPizzaParams {
   selectedSortType: string;
 }
 
-export type IFetchStatus = "loading" | "error" | "success";
+// export type IFetchStatus = "loading" | "error" | "success";
 
 interface IProductsSliceState {
   items: IPizzaBlock[];
-  status: IFetchStatus;
+  status: FetchStatus;
   totalPages: number;
 }
 
@@ -28,13 +33,13 @@ export const fetchProducts = createAsyncThunk(
       `${baseUrl}limit=8&page=${pageCurrent}&${categoryStr}${searchStr}&sortBy=${selectedSortType}&order=desc`
     );
 
-    return data;
+    return data as IPizzaBlock[];
   }
 );
 
 const initialState: IProductsSliceState = {
   items: [],
-  status: "loading",
+  status: FetchStatus.LOADING,
   totalPages: 0,
 };
 
@@ -45,21 +50,28 @@ export const productsSlice = createSlice({
     setItems(state, action: PayloadAction<IPizzaBlock[]>) {
       state.items = action.payload;
     },
+    setPagesTotal: (state, action: PayloadAction<number>) => {
+      state.totalPages = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {
-        state.status = "loading";
+        state.status = FetchStatus.LOADING;
         state.items = [];
+        console.log(" state.totalPages 555 :", state.totalPages);
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
-        state.status = "success";
+        state.status = FetchStatus.SUCCESS;
         state.items = action.payload;
-        state.totalPages = Math.ceil(action.payload.length / 8);
+        // state.totalPages = Math.ceil(action.payload.length / 8);
+        console.log(" state.totalPages 66666666666666666 :", state.totalPages);
       })
       .addCase(fetchProducts.rejected, (state) => {
-        state.status = "error";
+        state.status = FetchStatus.ERROR;
         state.items = [];
+        state.totalPages = 0;
+        console.log(" state.totalPages 777 :", state.totalPages);
       });
   },
 });
