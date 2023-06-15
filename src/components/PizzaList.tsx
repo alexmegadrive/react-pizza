@@ -25,11 +25,7 @@ const PizzaList: FC<IPizzaListProps> = ({ list, status }) => {
 
   const pizzas = list
     .filter((el) => el.title.toLowerCase().includes(searchValue.toLowerCase()))
-    .map((item, _) => (
-      <Link to={`/pizza/${item.id}`} key={item.id}>
-        <PizzaBlock {...item} />
-      </Link>
-    ));
+    .map((item, _) => <PizzaBlock {...item} />);
 
   if (status === FetchStatus.ERROR) {
     return (

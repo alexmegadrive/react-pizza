@@ -6,6 +6,7 @@ import { ICartItem } from "@/redux/slices/cart/cart.slice";
 import { useSelector } from "react-redux";
 import { useAppSelector, RootState } from "@/redux/store";
 import { selectCartItemById } from "@/redux/slices/cart/cart.slice";
+import { Link } from "react-router-dom";
 
 const PizzaBlock: FC<IPizzaBlock> = ({
   id,
@@ -45,8 +46,10 @@ const PizzaBlock: FC<IPizzaBlock> = ({
   return (
     <div className="pizza-block-wrapper">
       <div className="pizza-block">
-        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
-        <h4 className="pizza-block__title">{title}</h4>
+        <Link to={`/pizza/${id}`} key={id}>
+          <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+          <h4 className="pizza-block__title">{title}</h4>
+        </Link>
         <div className="pizza-block__selector">
           <ul>
             {types.map((typeIndex) => (
