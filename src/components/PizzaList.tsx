@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React, { FC, useContext } from "react";
 import { PizzaBlock } from "./";
 import PizzaSkeleton from "./PizzaBlock/skeleton";
 import { useAppSelector, RootState } from "../redux/store";
+import { IFetchStatus } from "@/redux/slices/products/products.slice";
 
 export interface IPizzaBlock {
   id: number;
@@ -15,21 +16,33 @@ export interface IPizzaBlock {
 }
 interface IPizzaListProps {
   list: IPizzaBlock[] | never[];
-  isLoading: boolean;
+  status: IFetchStatus;
 }
-const PizzaList = ({ list, isLoading }: IPizzaListProps) => {
+
+const PizzaList: FC<IPizzaListProps> = ({ list, status }) => {
+  console.log("status :", status);
   const searchValue = useAppSelector((state: RootState) => state.filter.value);
 
   const pizzas = list
     .filter((el) => el.title.toLowerCase().includes(searchValue.toLowerCase()))
     .map((item, _) => <PizzaBlock key={item.id} {...item} />);
-  return (
-    <>
-      {isLoading
-        ? [...new Array(8)].map((_, index) => <PizzaSkeleton key={index} />)
-        : pizzas}
-    </>
-  );
+
+  if (status === "error") {
+    return (
+      <div className="content__error">
+        <h1>Возникла ошибка при загрузке 😕</h1>
+        <span>Попробуйте повторить попытку позже</span>
+      </div>
+    );
+  }
+  if (status === "loading") {
+    return (
+      <div className="content__items">
+        {...[...new Array(8)].map((_, index) => <PizzaSkeleton key={index} />)}
+      </div>
+    );
+  }
+  return <div className="content__items">{...pizzas}</div>;
 };
 
 export default PizzaList;

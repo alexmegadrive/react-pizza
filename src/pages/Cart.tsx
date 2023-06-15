@@ -4,9 +4,11 @@ import { useAppSelector } from "@/redux/store";
 import React from "react";
 import { Link } from "react-router-dom";
 import CartEmpty from "@/components/CartEmpty";
+import { selectCart } from "@/redux/slices/cart/cart.slice";
+
 const Cart = () => {
   const { clearItems } = useActions();
-  const { items, totalPrice } = useAppSelector((state) => state.cart);
+  const { items, totalPrice } = useAppSelector(selectCart);
 
   const handleClearCart = () => {
     if (window.confirm("Удалить все позиции?")) {

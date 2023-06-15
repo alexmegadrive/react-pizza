@@ -51,6 +51,12 @@ body {
     }
   }
 
+  &__error {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+  }
   &__top {
     display: flex;
     align-items: center;

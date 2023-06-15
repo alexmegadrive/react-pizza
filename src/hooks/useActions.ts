@@ -5,10 +5,14 @@ import { useDispatch } from "react-redux";
 // import { formDataActions } from "../store/formData/formData.slice";
 import { filterActions } from "../redux/slices/filter/filter.slice";
 import { cartActions } from "@/redux/slices/cart/cart.slice";
+import { productsActions } from "@/redux/slices/products/products.slice";
+import { fetchProducts } from "@/redux/slices/products/products.slice";
 
 const rootActions = {
   ...filterActions,
   ...cartActions,
+  ...productsActions,
+  fetchProducts,
 };
 export const useActions = () => {
   const dispatch = useDispatch();

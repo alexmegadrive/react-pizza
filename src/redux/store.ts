@@ -2,12 +2,14 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 import filterReducer from "./slices/filter/filter.slice";
 import cartReducer from "./slices/cart/cart.slice";
+import productsReducer from "./slices/products/products.slice";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
 export const reducers = combineReducers({
   filter: filterReducer,
   cart: cartReducer,
+  products: productsReducer,
 });
 export const store = configureStore({
   reducer: reducers,

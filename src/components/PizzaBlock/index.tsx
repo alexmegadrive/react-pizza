@@ -1,12 +1,13 @@
-import React from "react";
+import React, { FC } from "react";
 import { IPizzaBlock } from "../PizzaList";
 import { pizzaTypeNames } from "@/constants/pizzaTypeNames";
 import { useActions } from "@/hooks/useActions";
 import { ICartItem } from "@/redux/slices/cart/cart.slice";
 import { useSelector } from "react-redux";
 import { useAppSelector, RootState } from "@/redux/store";
+import { selectCartItemById } from "@/redux/slices/cart/cart.slice";
 
-const PizzaBlock = ({
+const PizzaBlock: FC<IPizzaBlock> = ({
   id,
   title,
   price,
@@ -15,11 +16,10 @@ const PizzaBlock = ({
   sizes,
   category,
   rating,
-}: IPizzaBlock) => {
-  const cartItem = useAppSelector((state: RootState) =>
-    state.cart.items.find((item) => item.id === id)
-  );
-  const itemsInCart = cartItem ? cartItem?.count : 0;
+}) => {
+  const cartItem = useAppSelector(selectCartItemById(id));
+
+  const itemsInCart = cartItem ? cartItem.count : 0;
   const [activeType, setActiveType] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
   const { addItem } = useActions();
@@ -99,7 +99,3 @@ const PizzaBlock = ({
 };
 
 export default PizzaBlock;
-
-function pizzablock({ price }) {
-  return <div className="pizza-block__price">от {price} ₽</div>;
-}

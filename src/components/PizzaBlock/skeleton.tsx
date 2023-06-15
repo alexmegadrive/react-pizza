@@ -1,7 +1,7 @@
-import React from "react";
+import React, { FC } from "react";
 import ContentLoader from "react-content-loader";
 
-const PizzaSkeleton = (props: any) => (
+const PizzaSkeleton: FC = (props: any) => (
   <ContentLoader
     speed={2}
     width={280}

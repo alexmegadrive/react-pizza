@@ -2,11 +2,10 @@ import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import Search from "./Search";
 import { useAppSelector, RootState } from "@/redux/store";
+import { selectCart } from "@/redux/slices/cart/cart.slice";
 
 const Header = () => {
-  const { items, totalPrice } = useAppSelector(
-    (state: RootState) => state.cart
-  );
+  const { items, totalPrice } = useAppSelector(selectCart);
   const totalCount = items.reduce((acc, item) => acc + item.count, 0);
 
   return (

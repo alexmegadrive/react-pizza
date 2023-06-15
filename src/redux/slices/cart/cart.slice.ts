@@ -1,3 +1,4 @@
+import { RootState } from "@/redux/store";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { act } from "react-dom/test-utils";
@@ -65,7 +66,9 @@ export const cartSlice = createSlice({
     },
   },
 });
-// export const { setFilter, clearFilter } = filterSlice.actions;
+export const selectCart = (state: RootState) => state.cart;
+export const selectCartItemById = (id: number) => (state: RootState) =>
+  state.cart.items.find((item) => item.id === id);
 export const { actions: cartActions } = cartSlice;
 
 export default cartSlice.reducer;
