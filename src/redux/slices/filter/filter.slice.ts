@@ -19,8 +19,6 @@ const initialState: IFilterProps = {
   popup: false,
   isMounted: false,
 };
-// interface IFilterSLiceState < string>
-// const initialState = "";
 
 export const filterSlice = createSlice({
   name: "filter",
