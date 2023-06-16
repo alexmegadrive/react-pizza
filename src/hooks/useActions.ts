@@ -1,8 +1,6 @@
 import { bindActionCreators } from "@reduxjs/toolkit";
 import { useMemo } from "react";
 import { useDispatch } from "react-redux";
-// import { imageSearchActions } from "../store/imageSearch/imageSearch.slice";
-// import { formDataActions } from "../store/formData/formData.slice";
 import { filterActions } from "../redux/slices/filter/filter.slice";
 import { cartActions } from "@/redux/slices/cart/cart.slice";
 import { productsActions } from "@/redux/slices/products/products.slice";

@@ -6,16 +6,7 @@ import productsReducer from "./slices/products/products.slice";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import storage from "redux-persist/lib/storage";
-import {
-  persistStore,
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from "redux-persist";
+import { persistStore, persistReducer } from "redux-persist";
 export const reducers = combineReducers({
   filter: filterReducer,
   cart: cartReducer,
