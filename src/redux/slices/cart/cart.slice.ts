@@ -20,8 +20,6 @@ const initialState: ICartProps = {
   items: [],
   totalPrice: 0,
 };
-// interface IFilterSLiceState < string>
-// const initialState = "";
 
 export const cartSlice = createSlice({
   name: "cart",
@@ -44,8 +42,7 @@ export const cartSlice = createSlice({
     decreaseItem: (state, action: PayloadAction<number>) => {
       const findItem = state.items.find((item) => item.id === action.payload);
       if (findItem && findItem.count > 1) findItem.count--;
-      // else cartSlice.caseReducers.removeItem(state, action);
-      // cartSlice.caseReducers.countTotalSum(state);
+      
     },
     removeItem: (state, action: PayloadAction<number>) => {
       state.items = state.items.filter((el) => el.id !== action.payload);

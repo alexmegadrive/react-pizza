@@ -25,7 +25,6 @@ const Search: FC = () => {
 
   const setDebouncedFilterValue = useCallback(
     debounce((value: string) => {
-      console.log(value);
       setCategory(0);
       setSearchValue(value);
     }, 500),
@@ -33,7 +32,6 @@ const Search: FC = () => {
   );
 
   const handleClearSearch = (event: React.SyntheticEvent<SVGElement>) => {
-    console.log("event :", event);
     inputRef.current?.focus();
     setSearchLocalValue("");
     setSearchValue("");

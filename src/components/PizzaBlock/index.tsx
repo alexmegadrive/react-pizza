@@ -3,8 +3,7 @@ import { IPizzaBlock } from "../PizzaList";
 import { pizzaTypeNames } from "@/constants/pizzaTypeNames";
 import { useActions } from "@/hooks/useActions";
 import { ICartItem } from "@/redux/slices/cart/cart.slice";
-import { useSelector } from "react-redux";
-import { useAppSelector, RootState } from "@/redux/store";
+import { useAppSelector } from "@/redux/store";
 import { selectCartItemById } from "@/redux/slices/cart/cart.slice";
 import { Link } from "react-router-dom";
 
@@ -15,8 +14,6 @@ const PizzaBlock: FC<IPizzaBlock> = ({
   imageUrl,
   types,
   sizes,
-  category,
-  rating,
 }) => {
   const cartItem = useAppSelector(selectCartItemById(id));
 
@@ -37,11 +34,6 @@ const PizzaBlock: FC<IPizzaBlock> = ({
     };
     addItem(item);
   };
-
-  //   const increasePizzaCount = () => {
-  //const creatamount doo
-  //     setPizzaCount(pizzaCount + 1);
-  //   };
 
   return (
     <div className="pizza-block-wrapper">

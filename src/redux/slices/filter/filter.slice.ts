@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-// import employeesDB from "../../data/employees";
-// import { IEmployeCard } from "../../components/Employees/EmployeesList/EmployeesList";
 
 interface IFilterProps {
   value: string;
@@ -39,9 +37,6 @@ export const filterSlice = createSlice({
     },
 
     setFilters: (state, action: PayloadAction<any>) => {
-      // state.pageCurrent = Number(action.payload.pageCurrent);
-      // state.categoryId = action.payload.categoryId;
-      // state.sort = action.payload.sort;
       return (state = {
         ...state,
         sort: action.payload.sort,
@@ -82,7 +77,6 @@ export const filterSlice = createSlice({
     },
   },
 });
-// export const { setFilter, clearFilter } = filterSlice.actions;
 export const { actions: filterActions } = filterSlice;
 
 export default filterSlice.reducer;
