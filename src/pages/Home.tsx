@@ -1,10 +1,8 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { Categories, Sort } from "../components";
-import PizzaList, { IPizzaBlock } from "../components/PizzaList";
-import Pagination from "../components/Pagination";
+import { useEffect } from "react";
+import { Categories, Sort, PizzaList, Pagination } from "../components";
 import { useNavigate } from "react-router-dom";
-import qs from "qs";
 import { useActions } from "../hooks/useActions";
+import qs from "qs";
 import axios from "axios";
 import { useAppSelector, RootState } from "../redux/store";
 import { sortValues } from "../constants/sortValues";

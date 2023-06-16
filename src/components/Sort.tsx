@@ -1,27 +1,15 @@
-import React, {
-  memo,
-  useState,
-  FC,
-  useRef,
-  useEffect,
-  useCallback,
-} from "react";
-import { useClickAway, useWhyDidYouUpdate } from "ahooks";
+import React, { memo, FC, useRef, useCallback } from "react";
+import { useClickAway } from "ahooks";
 
 import { CSSTransition } from "react-transition-group";
 import { sortValues } from "../constants/sortValues";
 import { useActions } from "../hooks/useActions";
-import { useAppSelector, RootState } from "../redux/store";
 
 interface ISortProps {
   selectedSort: string;
   popup: boolean;
 }
 const Sort: FC<ISortProps> = memo(({ selectedSort, popup }) => {
-  // const selectedSort = useAppSelector(
-  //   (state: RootState) => state.filter.sort.sortType
-  // );
-  // const popup = useAppSelector((state: RootState) => state.filter.popup);
   const currentSort = sortValues.filter((el) => el.sortType === selectedSort)[0]
     ?.name;
 
@@ -41,6 +29,7 @@ const Sort: FC<ISortProps> = memo(({ selectedSort, popup }) => {
     closePopup();
   }, sortRef);
 
+  //Alternative without hook
   // useEffect(() => {
   //   const handleCloseSort = (event: MouseEvent) => {
   //     const composed = event.composedPath();
