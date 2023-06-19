@@ -1,9 +1,12 @@
 {
   "name": "react-pizza",
+  "homepage": "/react-pizza/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
@@ -14,6 +17,7 @@
     "ahooks": "^3.7.7",
     "axios": "^1.4.0",
     "clsx": "^1.2.1",
+    "gh-pages": "^5.0.0",
     "lodash.debounce": "^4.0.8",
     "qs": "^6.11.2",
     "react": "^18.2.0",
