@@ -13,28 +13,28 @@ import "./scss/app.scss";
 
 const router = createBrowserRouter([
   {
-    path: "/react-pizza/",
+    path: "/",
     element: <App />,
     children: [
       {
-        path: "/react-pizza/",
+        path: "/",
         element: <Home />,
       },
       {
-        path: "/react-pizza/*",
+        path: "/*",
         element: <NotFound />,
       },
       {
-        path: "/react-pizza/pizzas/:id",
+        path: "/pizzas/:id",
         element: <Home />,
       },
 
       {
-        path: "/react-pizza/cart",
+        path: "/cart",
         element: <Cart />,
       },
       {
-        path: "/react-pizza/pizza/:id",
+        path: "/pizza/:id",
         element: <FullPizza />,
       },
     ],
