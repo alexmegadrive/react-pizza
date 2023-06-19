@@ -2,39 +2,39 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { store, persistor } from "./redux/store";
 import { Provider } from "react-redux";
-import App from "./App.tsx";
-import "./scss/app.scss";
+import { PersistGate } from "redux-persist/lib/integration/react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import App from "./App.tsx";
 import Cart from "./pages/Cart.tsx";
 import Home from "./pages/Home.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import FullPizza from "./pages/FullPizza.tsx";
-import { PersistGate } from "redux-persist/lib/integration/react";
+import "./scss/app.scss";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/react-pizza/",
     element: <App />,
     children: [
       {
-        path: "/",
+        path: "/react-pizza/",
         element: <Home />,
       },
       {
-        path: "*",
+        path: "/react-pizza/*",
         element: <NotFound />,
       },
       {
-        path: "/pizzas/:id",
+        path: "/react-pizza/pizzas/:id",
         element: <Home />,
       },
 
       {
-        path: "/cart",
+        path: "/react-pizza/cart",
         element: <Cart />,
       },
       {
-        path: "/pizza/:id",
+        path: "/react-pizza/pizza/:id",
         element: <FullPizza />,
       },
     ],

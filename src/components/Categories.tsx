@@ -1,8 +1,7 @@
-import React, { memo, useState, FC, useCallback } from "react";
+import { memo, FC, useCallback } from "react";
 import { categories } from "../constants/categories";
 import { useAppSelector, RootState } from "../redux/store";
 import { useActions } from "../hooks/useActions";
-import useWhyDidYouUpdate from "ahooks/lib/useWhyDidYouUpdate";
 
 const Categories: FC = memo(() => {
   const selectedCategory = useAppSelector(

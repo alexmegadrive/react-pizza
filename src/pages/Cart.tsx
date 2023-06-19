@@ -1,7 +1,6 @@
 import CartItem from "@/components/CartItem";
 import { useActions } from "@/hooks/useActions";
 import { useAppSelector } from "@/redux/store";
-import React from "react";
 import { Link } from "react-router-dom";
 import CartEmpty from "@/components/CartEmpty";
 import { selectCart } from "@/redux/slices/cart/cart.slice";

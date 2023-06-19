@@ -1,17 +1,14 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import ReactPaginate from "react-paginate";
 import styles from "./Pagination.module.scss";
 import { useActions } from "@/hooks/useActions";
 import { useAppSelector, RootState } from "@/redux/store";
 
 const Pagination: FC = () => {
-  const pageCurrent = useAppSelector(
-    (state: RootState) => state.filter.pageCurrent
-  );
   const pagesTotal = useAppSelector(
     (state: RootState) => state.products.totalPages
   );
-  const { setPageCurrent, setPagesTotal } = useActions();
+  const { setPageCurrent } = useActions();
 
   return (
     <ReactPaginate

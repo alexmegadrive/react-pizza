@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { ICartItem } from "@/redux/slices/cart/cart.slice";
 import { useActions } from "@/hooks/useActions";
 import clsx from "clsx";

@@ -1,9 +1,8 @@
-import React, { FC, useContext } from "react";
+import { FC } from "react";
 import { PizzaBlock } from "./";
 import PizzaSkeleton from "./PizzaBlock/skeleton";
 import { useAppSelector, RootState } from "../redux/store";
 import { FetchStatus } from "@/redux/slices/products/products.slice";
-import { Link } from "react-router-dom";
 
 export interface IPizzaBlock {
   id: number;

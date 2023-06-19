@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useRef, useState } from "react";
+import { FC, useCallback, useRef, useState } from "react";
 import debounce from "lodash.debounce";
 import styles from "./Search.module.scss";
 import { useActions } from "../../hooks/useActions";
@@ -31,7 +31,7 @@ const Search: FC = () => {
     []
   );
 
-  const handleClearSearch = (event: React.SyntheticEvent<SVGElement>) => {
+  const handleClearSearch = () => {
     inputRef.current?.focus();
     setSearchLocalValue("");
     setSearchValue("");
@@ -66,7 +66,7 @@ const Search: FC = () => {
         />
         {searchStateValue && (
           <svg
-            onClick={(event) => handleClearSearch(event)}
+            onClick={() => handleClearSearch()}
             className={styles.clear}
             data-name="Capa 1"
             id="Capa_1"

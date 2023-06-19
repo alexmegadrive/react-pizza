@@ -1,4 +1,4 @@
-import React, { memo, FC, useRef, useCallback } from "react";
+import { memo, FC, useRef, useCallback } from "react";
 import { useClickAway } from "ahooks";
 
 import { CSSTransition } from "react-transition-group";

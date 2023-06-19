@@ -1,10 +1,10 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Search from "./Search";
-import { useAppSelector, RootState } from "@/redux/store";
+import { useAppSelector } from "@/redux/store";
 import { selectCart } from "@/redux/slices/cart/cart.slice";
 
-const Header = () => {
+const Header: FC = () => {
   const { items, totalPrice } = useAppSelector(selectCart);
   const totalCount = items.reduce((acc, item) => acc + item.count, 0);
   const location = useLocation();
