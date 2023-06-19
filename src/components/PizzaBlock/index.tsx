@@ -38,7 +38,7 @@ const PizzaBlock: FC<IPizzaBlock> = ({
   return (
     <div className="pizza-block-wrapper">
       <div className="pizza-block">
-        <Link to={`/pizza/${id}`} key={id}>
+        <Link to={`/react-pizza/pizza/${id}`} key={id}>
           <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
           <h4 className="pizza-block__title">{title}</h4>
         </Link>

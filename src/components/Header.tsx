@@ -11,9 +11,9 @@ const Header: FC = () => {
   return (
     <div className="header">
       <div className="container">
-        <Link to="./">
+        <Link to="/react-pizza">
           <div className="header__logo">
-            <img width="38" src="/img/pizza-logo.svg" alt="Pizza logo" />
+            <img width="38" src="./img/pizza-logo.svg" alt="Pizza logo" />
             <div>
               <h1>React Pizza</h1>
               <p>самая вкусная пицца во вселенной</p>
@@ -23,7 +23,7 @@ const Header: FC = () => {
         <Search />
         {location.pathname !== "/cart" && (
           <div className="header__cart">
-            <Link to="/cart" className="button button--cart">
+            <Link to="/react-pizza/cart" className="button button--cart">
               <span>{totalPrice} ₽</span>
               <div className="button__delimiter"></div>
               <svg
